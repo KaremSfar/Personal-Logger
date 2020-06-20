@@ -16,5 +16,7 @@ namespace PersonalLogger.Models
             // Ajouter les revendications personnalisées de l’utilisateur ici
             return userIdentity;
         }
+        //guest@sfar.com
+        //Karemsfar21$
     }
 }

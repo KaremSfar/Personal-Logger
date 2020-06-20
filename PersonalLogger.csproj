@@ -95,6 +95,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -201,6 +202,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API\MyLogsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -211,6 +213,10 @@
     <Compile Include="Migrations\202006101435172_InitialCreate.Designer.cs">
       <DependentUpon>202006101435172_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006201343151_AddMyLogs.cs" />
+    <Compile Include="Migrations\202006201343151_AddMyLogs.Designer.cs">
+      <DependentUpon>202006201343151_AddMyLogs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels\AccountViewModels.cs" />
     <Compile Include="Models\AccountModels\ExternalLoginConfirmationViewModel.cs" />
@@ -218,6 +224,8 @@
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\AccountModels\ApplicationUser.cs" />
     <Compile Include="Models\AccountModels\ManageViewModels.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\MyLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -399,6 +407,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202006101435172_InitialCreate.resx">
       <DependentUpon>202006101435172_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006201343151_AddMyLogs.resx">
+      <DependentUpon>202006201343151_AddMyLogs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
