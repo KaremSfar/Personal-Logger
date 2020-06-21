@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,8 +10,8 @@ namespace PersonalLogger.Models
         [Required]
         public DateTime LogDate { get; set; }
 
-        //public Category Category { get; set; }
+        public LogCategory LogCategory { get; set; }
 
-        //public List<Logs> Logs { get; set; }
+        public List<Field> Fields { get; set; }
     }
 }

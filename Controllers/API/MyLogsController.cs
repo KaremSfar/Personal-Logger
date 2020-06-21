@@ -1,6 +1,8 @@
 ﻿using PersonalLogger.Models;
+using PersonalLogger.Models.Fields;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -20,10 +22,12 @@ namespace PersonalLogger.Controllers.API
         //GET /api/myLogs
         public IHttpActionResult GetLogs()
         {
-            var myLogs = from line in context.MyLogs
-                         select line;
 
-            return Ok(myLogs);
+            var logList = from line in context.MyLogs.Include(m=>m.Fields)
+                          select line;
+
+
+            return Ok(logList);
         }
     }
 }
