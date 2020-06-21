@@ -13,5 +13,8 @@ namespace PersonalLogger.Models
         public LogCategory LogCategory { get; set; }
 
         public List<Field> Fields { get; set; }
+
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

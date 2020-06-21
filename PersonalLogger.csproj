@@ -208,6 +208,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DTO\LogCategoryDTO.cs" />
+    <Compile Include="DTO\MyLogDTO.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -228,9 +229,9 @@
     <Compile Include="Migrations\202006210253364_AddCategories.Designer.cs">
       <DependentUpon>202006210253364_AddCategories.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006211743509_AddLogsToPersonalUser.cs" />
-    <Compile Include="Migrations\202006211743509_AddLogsToPersonalUser.Designer.cs">
-      <DependentUpon>202006211743509_AddLogsToPersonalUser.cs</DependentUpon>
+    <Compile Include="Migrations\202006211933550_AddLogsUser.cs" />
+    <Compile Include="Migrations\202006211933550_AddLogsUser.Designer.cs">
+      <DependentUpon>202006211933550_AddLogsUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels\AccountViewModels.cs" />
@@ -440,8 +441,8 @@
     <EmbeddedResource Include="Migrations\202006210253364_AddCategories.resx">
       <DependentUpon>202006210253364_AddCategories.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006211743509_AddLogsToPersonalUser.resx">
-      <DependentUpon>202006211743509_AddLogsToPersonalUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202006211933550_AddLogsUser.resx">
+      <DependentUpon>202006211933550_AddLogsUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

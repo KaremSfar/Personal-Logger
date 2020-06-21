@@ -7,13 +7,13 @@ namespace PersonalLogger.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddLogsToPersonalUser : IMigrationMetadata
+    public sealed partial class AddLogsUser : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddLogsToPersonalUser));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddLogsUser));
         
         string IMigrationMetadata.Id
         {
-            get { return "202006211743509_AddLogsToPersonalUser"; }
+            get { return "202006211933550_AddLogsUser"; }
         }
         
         string IMigrationMetadata.Source
