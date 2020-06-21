@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using PersonalLogger.Models.Fields;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,6 +12,8 @@ namespace PersonalLogger.Models
     {
 
         public DbSet<MyLog> MyLogs { get; set; }
+
+        public DbSet<LogCategory> LogCategories { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
