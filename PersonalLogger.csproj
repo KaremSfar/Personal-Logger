@@ -228,6 +228,10 @@
     <Compile Include="Migrations\202006210253364_AddCategories.Designer.cs">
       <DependentUpon>202006210253364_AddCategories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006211743509_AddLogsToPersonalUser.cs" />
+    <Compile Include="Migrations\202006211743509_AddLogsToPersonalUser.Designer.cs">
+      <DependentUpon>202006211743509_AddLogsToPersonalUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels\AccountViewModels.cs" />
     <Compile Include="Models\AccountModels\ExternalLoginConfirmationViewModel.cs" />
@@ -435,6 +439,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006210253364_AddCategories.resx">
       <DependentUpon>202006210253364_AddCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006211743509_AddLogsToPersonalUser.resx">
+      <DependentUpon>202006211743509_AddLogsToPersonalUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
