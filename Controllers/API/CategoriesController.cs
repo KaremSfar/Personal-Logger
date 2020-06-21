@@ -27,8 +27,20 @@ namespace PersonalLogger.Controllers.API
             return Ok(list);
         }
 
+        //GET /api/categories/1
+        public IHttpActionResult GetCategory(int id)
+        {
+            var category = context.LogCategories.Include(c => c.CategoryFields).SingleOrDefault(c => c.Id == id);
+            if (category == null)
+            {
+                NotFound();
+            }
+            return Ok(category);
+
+        }
 
         //POST /api/cetegories
+        [HttpPost]
         public IHttpActionResult CreateCategory(LogCategoryDTO logCategoryDTO)
         {
             var categoryFields = new List<CategoryField>();
@@ -51,5 +63,28 @@ namespace PersonalLogger.Controllers.API
             return Ok(savedCategory);
 
         }
+
+        //PUT /api/categories/1
+        [HttpPut]
+        public IHttpActionResult UpdateCategory(LogCategoryDTO logCategoryDTO)
+        {
+            return NotFound();
+        }
+
+        //DELETE /api/categories/1
+        [HttpDelete]
+        public IHttpActionResult DeleteCategory(int id)
+        {
+            var category = context.LogCategories.Include(c => c.CategoryFields).SingleOrDefault(c => c.Id == id);
+            if (category == null)
+            {
+                NotFound();
+            }
+            context.LogCategories.Remove(category);
+            context.SaveChanges();
+            return Ok(category);
+        }
+
+
     }
 }

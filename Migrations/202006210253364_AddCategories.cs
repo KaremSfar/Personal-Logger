@@ -26,12 +26,12 @@ namespace PersonalLogger.Migrations
                         LogCategory_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.LogCategories", t => t.LogCategory_Id)
+                .ForeignKey("dbo.LogCategories", t => t.LogCategory_Id,cascadeDelete:true)
                 .Index(t => t.LogCategory_Id);
             
             AddColumn("dbo.MyLogs", "LogCategory_Id", c => c.Int());
             CreateIndex("dbo.MyLogs", "LogCategory_Id");
-            AddForeignKey("dbo.MyLogs", "LogCategory_Id", "dbo.LogCategories", "Id");
+            AddForeignKey("dbo.MyLogs", "LogCategory_Id", "dbo.LogCategories", "Id",cascadeDelete: true);
         }
         
         public override void Down()

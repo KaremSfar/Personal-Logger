@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.WebPages;
 
 namespace PersonalLogger.Models
 {
@@ -24,5 +25,6 @@ namespace PersonalLogger.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }
