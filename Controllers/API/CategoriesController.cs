@@ -1,11 +1,9 @@
 ﻿using PersonalLogger.DTO;
 using PersonalLogger.Models;
-using System;
+using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace PersonalLogger.Controllers.API
@@ -22,7 +20,10 @@ namespace PersonalLogger.Controllers.API
         //GET /api/categories
         public IHttpActionResult GetCategories()
         {
+            var userId = User.Identity.GetUserId();
+
             var list = from line in context.LogCategories.Include(c => c.CategoryFields)
+                       where line.ApplicationUserId == userId
                        select line;
             return Ok(list);
         }
@@ -30,7 +31,9 @@ namespace PersonalLogger.Controllers.API
         //GET /api/categories/1
         public IHttpActionResult GetCategory(int id)
         {
-            var category = context.LogCategories.Include(c => c.CategoryFields).SingleOrDefault(c => c.Id == id);
+            var userId = User.Identity.GetUserId();
+
+            var category = context.LogCategories.Include(c => c.CategoryFields).SingleOrDefault(c => c.Id == id && c.ApplicationUserId==userId);
             if (category == null)
             {
                 NotFound();
@@ -43,6 +46,8 @@ namespace PersonalLogger.Controllers.API
         [HttpPost]
         public IHttpActionResult CreateCategory(LogCategoryDTO logCategoryDTO)
         {
+            var userId = User.Identity.GetUserId();
+
             var categoryFields = new List<CategoryField>();
 
             foreach(var c in logCategoryDTO.CategoryFields)
@@ -53,7 +58,8 @@ namespace PersonalLogger.Controllers.API
             var logCategory = new LogCategory()
             {
                 CategoryName = logCategoryDTO.CategoryName,
-                CategoryFields = categoryFields
+                CategoryFields = categoryFields,
+                ApplicationUserId = userId
             };
 
             var savedCategory = context.LogCategories.Add(logCategory);
@@ -75,7 +81,9 @@ namespace PersonalLogger.Controllers.API
         [HttpDelete]
         public IHttpActionResult DeleteCategory(int id)
         {
-            var category = context.LogCategories.Include(c => c.CategoryFields).SingleOrDefault(c => c.Id == id);
+            var userId = User.Identity.GetUserId();
+
+            var category = context.LogCategories.Include(c => c.CategoryFields).SingleOrDefault(c => c.Id == id && c.ApplicationUserId==userId);
             if (category == null)
             {
                 NotFound();
