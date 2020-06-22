@@ -9,6 +9,7 @@ namespace PersonalLogger.Models
     {
         public string FieldName { get; set; }
 
-        public string FieldType { get; set; }
+        public FieldType FieldType { get; set; }
+        public int FieldTypeId { get; set; }
     }
 }
