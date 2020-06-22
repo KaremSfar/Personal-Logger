@@ -207,6 +207,8 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DTO\FieldDTO.cs" />
+    <Compile Include="DTO\FieldTypeDTO.cs" />
     <Compile Include="DTO\LogCategoryDTO.cs" />
     <Compile Include="DTO\MyLogDTO.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -237,6 +239,14 @@
     <Compile Include="Migrations\202006222140347_AddCategoriesToUser.Designer.cs">
       <DependentUpon>202006222140347_AddCategoriesToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006222230096_FieldTypeAdded.cs" />
+    <Compile Include="Migrations\202006222230096_FieldTypeAdded.Designer.cs">
+      <DependentUpon>202006222230096_FieldTypeAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006222249293_PopulateFieldTypes.cs" />
+    <Compile Include="Migrations\202006222249293_PopulateFieldTypes.Designer.cs">
+      <DependentUpon>202006222249293_PopulateFieldTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels\AccountViewModels.cs" />
     <Compile Include="Models\AccountModels\ExternalLoginConfirmationViewModel.cs" />
@@ -247,10 +257,11 @@
     <Compile Include="Models\CategoryField.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Field.cs" />
-    <Compile Include="Models\Fields\FloatField.cs" />
+    <Compile Include="Models\Fields\DecimalField.cs" />
     <Compile Include="Models\Fields\IntField.cs" />
     <Compile Include="Models\Fields\StringField.cs" />
     <Compile Include="Models\Fields\TimeSpanField.cs" />
+    <Compile Include="Models\FieldType.cs" />
     <Compile Include="Models\LogCategory.cs" />
     <Compile Include="Models\MyLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -450,6 +461,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006222140347_AddCategoriesToUser.resx">
       <DependentUpon>202006222140347_AddCategoriesToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006222230096_FieldTypeAdded.resx">
+      <DependentUpon>202006222230096_FieldTypeAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006222249293_PopulateFieldTypes.resx">
+      <DependentUpon>202006222249293_PopulateFieldTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

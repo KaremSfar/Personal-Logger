@@ -52,7 +52,11 @@ namespace PersonalLogger.Controllers.API
 
             foreach(var c in logCategoryDTO.CategoryFields)
             {
-                categoryFields.Add(new CategoryField { FieldName = c.Key, FieldType = c.Value });
+                categoryFields.Add(new CategoryField
+                {
+                    FieldName = c.Key,
+                    FieldTypeId = c.Value
+                });
             }
 
             var logCategory = new LogCategory()

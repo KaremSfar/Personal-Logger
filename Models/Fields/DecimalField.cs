@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PersonalLogger.Models.Fields
 {
-    public class FloatField : Field
+    public class DecimalField : Field
     {
         public decimal? Value { get; set; }
     }
