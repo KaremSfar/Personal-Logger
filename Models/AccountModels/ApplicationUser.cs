@@ -13,6 +13,8 @@ namespace PersonalLogger.Models
 
         public List<MyLog> MyLogs { get; set; }
 
+        public List<LogCategory> LogCategories { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Notez qu'authenticationType doit correspondre à l'élément défini dans CookieAuthenticationOptions.AuthenticationType

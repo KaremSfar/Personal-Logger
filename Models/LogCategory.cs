@@ -10,5 +10,8 @@ namespace PersonalLogger.Models
         public string CategoryName { get; set; }
 
         public List<CategoryField> CategoryFields { get; set; }
+
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
