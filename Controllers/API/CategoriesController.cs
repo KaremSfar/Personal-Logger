@@ -1,10 +1,10 @@
 ﻿using PersonalLogger.DTO;
 using PersonalLogger.Models;
 using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
 using System.Web.Http;
+using AutoMapper;
 
 namespace PersonalLogger.Controllers.API
 {
@@ -46,31 +46,16 @@ namespace PersonalLogger.Controllers.API
         [HttpPost]
         public IHttpActionResult CreateCategory(LogCategoryDTO logCategoryDTO)
         {
-            var userId = User.Identity.GetUserId();
 
-            var categoryFields = new List<CategoryField>();
+            var category = Mapper.Map<LogCategoryDTO, LogCategory>(logCategoryDTO);
 
-            foreach(var c in logCategoryDTO.CategoryFields)
-            {
-                categoryFields.Add(new CategoryField
-                {
-                    FieldName = c.FieldName,
-                    FieldTypeId = c.FieldTypeDTO.Id
-                });
-            }
+            category.ApplicationUserId = User.Identity.GetUserId();
 
-            var logCategory = new LogCategory()
-            {
-                CategoryName = logCategoryDTO.CategoryName,
-                CategoryFields = categoryFields,
-                ApplicationUserId = userId
-            };
-
-            var savedCategory = context.LogCategories.Add(logCategory);
+            category = context.LogCategories.Add(category);
 
             context.SaveChanges();
 
-            return Ok(savedCategory);
+            return Ok(Mapper.Map<LogCategory,LogCategoryDTO>(category));
 
         }
 
