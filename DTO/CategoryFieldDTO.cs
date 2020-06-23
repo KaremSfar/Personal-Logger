@@ -11,6 +11,6 @@ namespace PersonalLogger.DTO
 
         public string FieldName { get; set; }
 
-        public FieldTypeDTO FieldTypeDTO { get; set; }
+        public FieldTypeDTO FieldType { get; set; }
     }
 }
