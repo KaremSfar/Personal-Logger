@@ -207,6 +207,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DTO\CategoryFieldDTO.cs" />
     <Compile Include="DTO\FieldDTO.cs" />
     <Compile Include="DTO\FieldTypeDTO.cs" />
     <Compile Include="DTO\LogCategoryDTO.cs" />

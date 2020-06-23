@@ -5,12 +5,12 @@ using System.Web;
 
 namespace PersonalLogger.DTO
 {
-    public class FieldDTO
+    public class CategoryFieldDTO
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string FieldName { get; set; }
 
-        public dynamic Value { get; set; }
+        public FieldTypeDTO FieldTypeDTO { get; set; }
     }
 }

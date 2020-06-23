@@ -54,8 +54,8 @@ namespace PersonalLogger.Controllers.API
             {
                 categoryFields.Add(new CategoryField
                 {
-                    FieldName = c.Key,
-                    FieldTypeId = c.Value
+                    FieldName = c.FieldName,
+                    FieldTypeId = c.FieldTypeDTO.Id
                 });
             }
 

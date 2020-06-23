@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PersonalLogger.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing.Design;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace PersonalLogger.DTO
 
         public string CategoryName { get; set; }
 
-        public Dictionary<string,int> CategoryFields { get; set; }
+        public List<CategoryFieldDTO> CategoryFields { get; set; }
     }
 }
