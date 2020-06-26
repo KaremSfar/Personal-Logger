@@ -45,6 +45,22 @@
                     }
                 ]
             });
+
+            $("#categories").on("click", '.js-delete', function () {
+                var button = $(this);
+                bootbox.confirm("Delete this cateory ?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/categories/" + button.attr("data-category-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+                })
+            });
+
         });
 
     </script>
