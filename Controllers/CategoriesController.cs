@@ -12,7 +12,6 @@ namespace PersonalLogger.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            var userId = User.Identity.GetUserId();
             return View();
         }
     }
