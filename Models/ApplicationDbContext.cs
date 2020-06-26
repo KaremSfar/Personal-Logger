@@ -16,6 +16,8 @@ namespace PersonalLogger.Models
 
         public DbSet<LogCategory> LogCategories { get; set; }
 
+        public DbSet<FieldType> FieldTypes { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

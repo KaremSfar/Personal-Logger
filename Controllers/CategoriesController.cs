@@ -14,5 +14,11 @@ namespace PersonalLogger.Controllers
         {
             return View();
         }
+
+        //GET: Categories/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
     }
 }

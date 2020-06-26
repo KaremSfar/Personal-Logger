@@ -51,6 +51,8 @@ namespace PersonalLogger.Controllers.API
 
             category.ApplicationUserId = User.Identity.GetUserId();
 
+
+
             category = context.LogCategories.Add(category);
 
             context.SaveChanges();
