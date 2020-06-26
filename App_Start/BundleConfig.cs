@@ -13,7 +13,8 @@ namespace PersonalLogger
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/bootbox.js",
                         "~/Scripts/DataTables/jquery.datatables.js",
-                        "~/Scripts/datatables/datatables.bootstrap4.js"));
+                        "~/Scripts/datatables/datatables.bootstrap4.js",
+                        "~/Scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -26,6 +27,7 @@ namespace PersonalLogger
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/DataTables/css/dataTables.bootstrap4.css",
+                      "~/Content/toastr.css",
                       "~/Content/Site.css"));
         }
     }

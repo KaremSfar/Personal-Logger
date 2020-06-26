@@ -20,6 +20,8 @@
 @section scripts{
     <script>
         $(document).ready(function () {
+            
+
             var table = $("#categories").DataTable({
                 ajax: {
                     url: "/api/categories",
@@ -54,6 +56,7 @@
                             url: "/api/categories/" + button.attr("data-category-id"),
                             method: "DELETE",
                             success: function () {
+                                toastr.success("Category Successfully Deleted");
                                 table.row(button.parents("tr")).remove().draw();
                             }
                         });
