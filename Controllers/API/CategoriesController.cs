@@ -22,9 +22,9 @@ namespace PersonalLogger.Controllers.API
         {
             var userId = User.Identity.GetUserId();
 
-            var list = from line in context.LogCategories.Include(c => c.CategoryFields)
-                       where line.ApplicationUserId == userId
-                       select line;
+            var list = context.LogCategories.Include(c => c.CategoryFields)
+                .Where(c => c.ApplicationUserId == userId)
+                .Select(Mapper.Map<LogCategory, LogCategoryDTO>);
             return Ok(list);
         }
 
