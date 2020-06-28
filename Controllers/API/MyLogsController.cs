@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using PersonalLogger.DTO;
 using PersonalLogger.Models;
+using PersonalLogger.Util;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -39,11 +40,17 @@ namespace PersonalLogger.Controllers.API
 
             var userId = User.Identity.GetUserId();
 
+            var category = context.LogCategories.Include(c => c.CategoryFields.Select(cf=>cf.FieldType)).SingleOrDefault(c => c.Id == myLogDTO.LogCategoryId);
+
             var fields = new List<Field>();
+
+            var fieldFactory = new FieldFactory();
 
             foreach(var field in myLogDTO.Fields)
             {
-                //Fields Factory create fields with regards to dico
+                var fieldType = category.CategoryFields.SingleOrDefault(cf => cf.Id == field.CategoryField.Id).FieldType.TypeName;
+                var lol = fieldFactory.CreateField(field.Value, fieldType);
+                    
             }
 
             var logCategory = context.LogCategories.SingleOrDefault(c => c.Id == myLogDTO.LogCategoryId);

@@ -8,5 +8,21 @@ namespace PersonalLogger.Models.Fields
     public class IntField : Field
     {
         public int? Value { get; set; }
+
+        public IntField()
+        {
+
+        }
+
+        public IntField(dynamic value)
+        {
+            try
+            {
+                Value = int.Parse(value);
+            }catch(Exception e)
+            {
+
+            }
+        }
     }
 }

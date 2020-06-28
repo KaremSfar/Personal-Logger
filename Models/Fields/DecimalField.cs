@@ -8,5 +8,22 @@ namespace PersonalLogger.Models.Fields
     public class DecimalField : Field
     {
         public decimal? Value { get; set; }
+
+        public DecimalField()
+        {
+
+        }
+
+        public DecimalField(dynamic value)
+        {
+            try
+            {
+                Value = Decimal.Parse(value);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
     }
 }
