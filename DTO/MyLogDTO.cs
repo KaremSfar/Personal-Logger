@@ -11,7 +11,7 @@ namespace PersonalLogger.DTO
 
         public int LogCategoryId { get; set; }
 
-        public Dictionary<string,string> Fields { get; set; }
+        public List<FieldDTO> Fields { get; set; }
 
     }
 }

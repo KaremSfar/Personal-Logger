@@ -9,7 +9,7 @@ namespace PersonalLogger.DTO
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public CategoryFieldDTO CategoryFieldDTO { get; set; }
 
         public dynamic Value { get; set; }
     }

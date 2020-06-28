@@ -8,6 +8,7 @@ namespace PersonalLogger.Models
 {
     public abstract class Field : Entity
     {
-        public string Name { get; set; }
+        public CategoryField CategoryField { get; set; }
+        public int CategoryFieldId { get; set; }
     }
 }
