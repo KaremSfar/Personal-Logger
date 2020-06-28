@@ -49,7 +49,8 @@ namespace PersonalLogger.Controllers.API
             foreach(var field in myLogDTO.Fields)
             {
                 var fieldType = category.CategoryFields.SingleOrDefault(cf => cf.Id == field.CategoryField.Id).FieldType.TypeName;
-                var lol = fieldFactory.CreateField(field.Value, fieldType);
+                Field lol = fieldFactory.CreateField(field.Value, fieldType);
+                lol.CategoryFieldId = myLogDTO.LogCategoryId;
                 fields.Add(lol);   
             }
 
@@ -60,7 +61,7 @@ namespace PersonalLogger.Controllers.API
                 ApplicationUserId = userId,
                 Fields = fields,
                 LogDate = DateTime.Now,
-                LogCategory = logCategory
+                LogCategoryId = myLogDTO.LogCategoryId
             };
 
 
