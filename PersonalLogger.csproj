@@ -254,6 +254,10 @@
     <Compile Include="Migrations\202006281541375_AddCategoryFieldToFields.Designer.cs">
       <DependentUpon>202006281541375_AddCategoryFieldToFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006281722257_alou.cs" />
+    <Compile Include="Migrations\202006281722257_alou.Designer.cs">
+      <DependentUpon>202006281722257_alou.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels\AccountViewModels.cs" />
     <Compile Include="Models\AccountModels\ExternalLoginConfirmationViewModel.cs" />
@@ -724,6 +728,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006281541375_AddCategoryFieldToFields.resx">
       <DependentUpon>202006281541375_AddCategoryFieldToFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006281722257_alou.resx">
+      <DependentUpon>202006281722257_alou.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
