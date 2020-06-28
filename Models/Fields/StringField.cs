@@ -8,5 +8,16 @@ namespace PersonalLogger.Models.Fields
     public class StringField : Field
     {
         public string Value { get; set; }
+
+
+        public StringField()
+        {
+
+        }
+
+        public StringField(dynamic value)
+        {
+            Value = value;
+        }
     }
 }

@@ -17,8 +17,21 @@ namespace PersonalLogger.Util
                 case "Decimal":
                     return new DecimalField(value);
                     break;
+
+                case "Int":
+                    return new IntField(value);
+                    break;
+
+                case "String":
+                    return new StringField(value);
+                    break;
+
+                case "TimeSpan":
+                    return new TimeSpanField(value);
+                    break;
+
                 default:
-                    return new IntField();
+                    return new StringField(value);
             }
         }
     }

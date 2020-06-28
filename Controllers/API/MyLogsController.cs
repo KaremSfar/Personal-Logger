@@ -50,7 +50,7 @@ namespace PersonalLogger.Controllers.API
             {
                 var fieldType = category.CategoryFields.SingleOrDefault(cf => cf.Id == field.CategoryField.Id).FieldType.TypeName;
                 var lol = fieldFactory.CreateField(field.Value, fieldType);
-                    
+                fields.Add(lol);   
             }
 
             var logCategory = context.LogCategories.SingleOrDefault(c => c.Id == myLogDTO.LogCategoryId);
