@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PersonalLogger.Models;
-using PersonalLogger.Models.AccountModels;
 
 namespace PersonalLogger.Controllers
 {

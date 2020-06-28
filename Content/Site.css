@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.w-10{
+    width:10%;
+}
+
+.w-30vw{
+    width:30vw;
+}
+.w-50vw{
+    width:50vw;
+}
