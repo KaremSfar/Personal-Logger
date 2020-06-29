@@ -18,14 +18,23 @@ namespace PersonalLogger.Controllers.API
         }
 
         //GET /api/categories
-        public IHttpActionResult GetCategories()
+        [HttpGet]
+        public IHttpActionResult GetCategories(string query = null)
         {
             var userId = User.Identity.GetUserId();
 
             var list = context.LogCategories.Include(c => c.CategoryFields)
-                .Where(c => c.ApplicationUserId == userId)
-                .Select(Mapper.Map<LogCategory, LogCategoryDTO>);
-            return Ok(list);
+                .Where(c => c.ApplicationUserId == userId);
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                list = list.Where(c => c.CategoryName.Contains(query));
+            }
+            
+            var categories = list.Select(Mapper.Map<LogCategory, LogCategoryDTO>);
+
+
+            return Ok(categories);
         }
 
         //GET /api/categories/1

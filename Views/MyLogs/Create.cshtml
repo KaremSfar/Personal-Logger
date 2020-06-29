@@ -4,10 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Add Log</h2>
 
 <form id="newLog">
+    <div class="form-group">
+        <label>Category</label>
+        <div class="tt-container">
+            <input id="category" name="category" required type="text" value="" class="form-control" />
+        </div>
 
+
+
+    </div>
 
 </form>
 
@@ -20,10 +28,48 @@
             var categoryId;
 
             var myLog = {
-                LogCategoryId,
                 Fields:[]
             }
 
+            var categories = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('categoryName'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/categories?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#category').typeahead({
+                minlength: 3,
+                highlight: true
+            }, {
+                name: 'categories',
+                display: 'categoryName',
+                source: categories
+            }).on("typeahead:select", function (e, category) {
+
+                categoryId = category.Id;
+
+                myLog.categoryId = categoryId;
+
+                $(".form-group").not(':first').remove();
+
+                $.each(category.categoryFields, function (index, categoryField) {
+
+                    $("#newLog").append(makeFieldForm(categoryField));
+                });
+
+            });
+
         });
+
+        function makeFieldForm({id,fieldName,fieldType }) {
+            var str = "<div class='form-group'>";
+            str += "<label>" + fieldName + " - " + fieldType.typeName + "</label>";
+            str += "<input data-field-id='" + id + "' type='text' name=" + fieldName + " class='form-control'>";
+            str += "</div>";
+            return str;
+        }
     </script>
 }
