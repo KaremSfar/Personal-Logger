@@ -29,18 +29,18 @@ namespace PersonalLogger.Migrations
                 .ForeignKey("dbo.LogCategories", t => t.LogCategory_Id,cascadeDelete:true)
                 .Index(t => t.LogCategory_Id);
             
-            AddColumn("dbo.MyLogs", "LogCategory_Id", c => c.Int());
-            CreateIndex("dbo.MyLogs", "LogCategory_Id");
-            AddForeignKey("dbo.MyLogs", "LogCategory_Id", "dbo.LogCategories", "Id",cascadeDelete: true);
+            AddColumn("dbo.MyLogs", "LogCategoryId", c => c.Int());
+            CreateIndex("dbo.MyLogs", "LogCategoryId");
+            AddForeignKey("dbo.MyLogs", "LogCategoryId", "dbo.LogCategories", "Id",cascadeDelete: true);
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.MyLogs", "LogCategory_Id", "dbo.LogCategories");
-            DropForeignKey("dbo.CategoryFields", "LogCategory_Id", "dbo.LogCategories");
-            DropIndex("dbo.MyLogs", new[] { "LogCategory_Id" });
-            DropIndex("dbo.CategoryFields", new[] { "LogCategory_Id" });
-            DropColumn("dbo.MyLogs", "LogCategory_Id");
+            DropForeignKey("dbo.MyLogs", "LogCategoryId", "dbo.LogCategories");
+            DropForeignKey("dbo.CategoryFields", "LogCategoryId", "dbo.LogCategories");
+            DropIndex("dbo.MyLogs", new[] { "LogCategoryId" });
+            DropIndex("dbo.CategoryFields", new[] { "LogCategoryId" });
+            DropColumn("dbo.MyLogs", "LogCategoryId");
             DropTable("dbo.CategoryFields");
             DropTable("dbo.LogCategories");
         }

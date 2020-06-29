@@ -11,6 +11,7 @@ namespace PersonalLogger.Models
         public DateTime LogDate { get; set; }
 
         public LogCategory LogCategory { get; set; }
+        public int LogCategoryId { get; set; }
 
         public List<Field> Fields { get; set; }
 

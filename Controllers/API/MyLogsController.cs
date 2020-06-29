@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using PersonalLogger.DTO;
 using PersonalLogger.Models;
+using PersonalLogger.Util;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -23,9 +25,9 @@ namespace PersonalLogger.Controllers.API
         {
             var userId = User.Identity.GetUserId();
 
-            var logList = from line in context.MyLogs.Include(m=>m.Fields).Include(m=>m.LogCategory)
-                          where line.ApplicationUserId == userId
-                          select line;
+            var logList = context.MyLogs.Include(m => m.Fields.Select(f=>f.CategoryField))
+                .Where(m => m.ApplicationUserId == userId)
+                .Select(Mapper.Map<MyLog, MyLogDTO>);
 
 
             return Ok(logList);
@@ -39,11 +41,18 @@ namespace PersonalLogger.Controllers.API
 
             var userId = User.Identity.GetUserId();
 
+            var category = context.LogCategories.Include(c => c.CategoryFields.Select(cf=>cf.FieldType)).SingleOrDefault(c => c.Id == myLogDTO.LogCategoryId);
+
             var fields = new List<Field>();
+
+            var fieldFactory = new FieldFactory();
 
             foreach(var field in myLogDTO.Fields)
             {
-                //Fields Factory create fields with regards to dico
+                var fieldType = category.CategoryFields.SingleOrDefault(cf => cf.Id == field.CategoryField.Id).FieldType.TypeName;
+                Field lol = fieldFactory.CreateField(field.Value, fieldType);
+                lol.CategoryFieldId = myLogDTO.LogCategoryId;
+                fields.Add(lol);   
             }
 
             var logCategory = context.LogCategories.SingleOrDefault(c => c.Id == myLogDTO.LogCategoryId);
@@ -53,15 +62,18 @@ namespace PersonalLogger.Controllers.API
                 ApplicationUserId = userId,
                 Fields = fields,
                 LogDate = DateTime.Now,
-                LogCategory = logCategory
+                LogCategoryId = myLogDTO.LogCategoryId
             };
+
 
 
             context.MyLogs.Add(myLog);
 
             context.SaveChanges();
 
-            return Ok(myLog);
+            var rLog = Mapper.Map<MyLog, MyLogDTO>(myLog);
+
+            return Ok(rLog);
 
         }
     }
