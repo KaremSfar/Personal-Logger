@@ -19,11 +19,17 @@
                 type: "get",
                 success: function (data) {
                     $.each(data, function (index, category) {
-                        var a = ' <div class="card w-25 mr-4 logLink"><div class="card-header">' + category.categoryName +'</div><div class="card-body">aaa</div></div>'
-                        $("#logCategories").append(a)
-                    })
+                        var a = ' <div class="card w-25 mr-4 "><div class="card-header">' + category.categoryName + '</div><div class="card-body"><button data-category-id=' + category.id +' class="btn logLink btn-primary">aaa</button></div></div > '
+                        $("#logCategories").append(a);
+                    });
                 }
-            })
+            });
+
+            $("#logCategories").on("click", '.logLink', function () {
+                var button = $(this);
+                window.location.replace("/MyLogs/Details/" + button.attr("data-category-id"));
+
+            });
 
 
         });
