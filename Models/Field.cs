@@ -10,5 +10,7 @@ namespace PersonalLogger.Models
     {
         public CategoryField CategoryField { get; set; }
         public int CategoryFieldId { get; set; }
+
+        public abstract dynamic GetValue();
     }
 }

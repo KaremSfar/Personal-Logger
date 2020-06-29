@@ -24,5 +24,9 @@ namespace PersonalLogger.Models.Fields
 
             }
         }
+        public override dynamic GetValue()
+        {
+            return Value;
+        }
     }
 }

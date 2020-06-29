@@ -37,6 +37,13 @@ namespace PersonalLogger.App_Start
             Mapper.CreateMap<LogCategory, LogCategoryDTO>();
             Mapper.CreateMap<LogCategoryDTO, LogCategory>();
 
+            Mapper.CreateMap<Field, FieldDTO>()
+                .ForMember(dest => dest.Value,
+                opts => opts.MapFrom(src => src.GetValue()));
+            Mapper.CreateMap<FieldDTO, Field>();
+
+            Mapper.CreateMap<MyLog, MyLogDTO>();
+
         }
     }
 }

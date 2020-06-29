@@ -19,5 +19,10 @@ namespace PersonalLogger.Models.Fields
         {
             Value = value;
         }
+
+        public override dynamic GetValue()
+        {
+            return Value;
+        }
     }
 }
