@@ -12,11 +12,10 @@
         <div class="tt-container">
             <input id="category" name="category" required type="text" value="" class="form-control" />
         </div>
-
-
-
     </div>
-
+    <div id="fields">
+    </div>
+    <button id="submit" class="btn btn-primary">Add</button>
 </form>
 
 
@@ -50,25 +49,58 @@
                 source: categories
             }).on("typeahead:select", function (e, category) {
 
-                categoryId = category.Id;
 
-                myLog.categoryId = categoryId;
+                categoryId = category.id;
 
-                $(".form-group").not(':first').remove();
+                myLog.LogcategoryId = categoryId;
+
+                $("#fields").empty();
 
                 $.each(category.categoryFields, function (index, categoryField) {
-
-                    $("#newLog").append(makeFieldForm(categoryField));
+                    $("#fields").append(makeFieldForm(categoryField));
                 });
 
             });
+
+            $("#submit").click(function (e) {
+                e.preventDefault();
+
+                var fieldsForm = $("#fields input");
+
+                $.each(fieldsForm, function (index, fieldForm) {
+                    var categoryFieldId = fieldForm.getAttribute("category-field-id");
+                    var fieldValue = fieldForm.value;
+
+                    myLog.Fields.push({
+                        categoryField: {
+                            Id: categoryFieldId
+                        },
+                        value: fieldValue
+                    });
+                });
+
+                console.log(myLog);
+
+                $.ajax({
+                    url: "/api/myLogs",
+                    method: "post",
+                    data: myLog,
+                    success: function () {
+                        console.log("success");
+                        window.location.reload(0);
+                    }
+                });
+
+
+            });
+
 
         });
 
         function makeFieldForm({id,fieldName,fieldType }) {
             var str = "<div class='form-group'>";
             str += "<label>" + fieldName + " - " + fieldType.typeName + "</label>";
-            str += "<input data-field-id='" + id + "' type='text' name=" + fieldName + " class='form-control'>";
+            str += "<input category-field-id='" + id + "' type='text' name=" + fieldName + " class='form-control'>";
             str += "</div>";
             return str;
         }

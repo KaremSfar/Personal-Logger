@@ -51,7 +51,7 @@ namespace PersonalLogger.Controllers.API
             {
                 var fieldType = category.CategoryFields.SingleOrDefault(cf => cf.Id == field.CategoryField.Id).FieldType.TypeName;
                 Field lol = fieldFactory.CreateField(field.Value, fieldType);
-                lol.CategoryFieldId = myLogDTO.LogCategoryId;
+                lol.CategoryFieldId = field.CategoryField.Id;
                 fields.Add(lol);   
             }
 
