@@ -34,6 +34,7 @@
             var categories = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('categoryName'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
+                prefetch: '/api/categories',
                 remote: {
                     url: '/api/categories?query=%QUERY',
                     wildcard: '%QUERY'
