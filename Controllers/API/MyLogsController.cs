@@ -21,13 +21,21 @@ namespace PersonalLogger.Controllers.API
         }
 
         //GET /api/myLogs
-        public IHttpActionResult GetLogs()
+        public IHttpActionResult GetLogs(string query = null, int? categoryId=null)
         {
             var userId = User.Identity.GetUserId();
 
-            var logList = context.MyLogs.Include(m => m.Fields.Select(f=>f.CategoryField))
-                .Where(m => m.ApplicationUserId == userId)
+            var logListQuery = context.MyLogs.Include(m => m.Fields.Select(f => f.CategoryField))
+                .Where(m => m.ApplicationUserId == userId);
+
+            if (categoryId != null)
+            {
+                logListQuery = logListQuery.Where(ml => ml.LogCategoryId == categoryId);
+            }
+
+            var logList = logListQuery.ToList()
                 .Select(Mapper.Map<MyLog, MyLogDTO>);
+
 
 
             return Ok(logList);
@@ -51,7 +59,7 @@ namespace PersonalLogger.Controllers.API
             {
                 var fieldType = category.CategoryFields.SingleOrDefault(cf => cf.Id == field.CategoryField.Id).FieldType.TypeName;
                 Field lol = fieldFactory.CreateField(field.Value, fieldType);
-                lol.CategoryFieldId = myLogDTO.LogCategoryId;
+                lol.CategoryFieldId = field.CategoryField.Id;
                 fields.Add(lol);   
             }
 
@@ -75,6 +83,23 @@ namespace PersonalLogger.Controllers.API
 
             return Ok(rLog);
 
+        }
+
+
+        [HttpDelete]
+        public IHttpActionResult DeleteLog(int id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var log = context.MyLogs.Include(l=>l.Fields).SingleOrDefault(l => l.Id == id && l.ApplicationUserId == userId);
+            if (log == null)
+            {
+                NotFound();
+            }
+            context.MyLogs.Remove(log);
+            context.SaveChanges();
+
+            return Ok(Mapper.Map<MyLog,MyLogDTO>(log));
         }
     }
 }

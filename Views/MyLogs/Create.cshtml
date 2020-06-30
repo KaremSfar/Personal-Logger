@@ -4,5 +4,105 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Add Log</h2>
 
+<form id="newLog">
+    <div class="form-group">
+        <label>Category</label>
+        <div class="tt-container">
+            <input id="category" name="category" required type="text" value="" class="form-control" />
+        </div>
+    </div>
+    <div id="fields">
+    </div>
+    <button id="submit" class="btn btn-primary">Add</button>
+</form>
+
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            var categoryId;
+
+            var myLog = {
+                Fields:[]
+            }
+
+            var categories = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('categoryName'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                prefetch: '/api/categories',
+                remote: {
+                    url: '/api/categories?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#category').typeahead({
+                minlength: 3,
+                highlight: true
+            }, {
+                name: 'categories',
+                display: 'categoryName',
+                source: categories
+            }).on("typeahead:select", function (e, category) {
+
+
+                categoryId = category.id;
+
+                myLog.LogcategoryId = categoryId;
+
+                $("#fields").empty();
+
+                $.each(category.categoryFields, function (index, categoryField) {
+                    $("#fields").append(makeFieldForm(categoryField));
+                });
+
+            });
+
+            $("#submit").click(function (e) {
+                e.preventDefault();
+
+                var fieldsForm = $("#fields input");
+
+                $.each(fieldsForm, function (index, fieldForm) {
+                    var categoryFieldId = fieldForm.getAttribute("category-field-id");
+                    var fieldValue = fieldForm.value;
+
+                    myLog.Fields.push({
+                        categoryField: {
+                            Id: categoryFieldId
+                        },
+                        value: fieldValue
+                    });
+                });
+
+                console.log(myLog);
+
+                $.ajax({
+                    url: "/api/myLogs",
+                    method: "post",
+                    data: myLog,
+                    success: function () {
+                        console.log("success");
+                        window.location.reload(0);
+                    }
+                });
+
+
+            });
+
+
+        });
+
+        function makeFieldForm({id,fieldName,fieldType }) {
+            var str = "<div class='form-group'>";
+            str += "<label>" + fieldName + " - " + fieldType.typeName + "</label>";
+            str += "<input category-field-id='" + id + "' type='text' name=" + fieldName + " class='form-control'>";
+            str += "</div>";
+            return str;
+        }
+    </script>
+}
