@@ -7,6 +7,8 @@ namespace PersonalLogger.DTO
 {
     public class MyLogDTO
     {
+        public int Id;
+
         public DateTime LogDate { get; set; }
 
         public int LogCategoryId { get; set; }
