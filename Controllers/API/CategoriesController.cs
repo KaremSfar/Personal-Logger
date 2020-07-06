@@ -58,6 +58,11 @@ namespace PersonalLogger.Controllers.API
         public IHttpActionResult CreateCategory(LogCategoryDTO logCategoryDTO)
         {
 
+            if (!ModelState.IsValid)
+            {
+                throw new HttpResponseException(System.Net.HttpStatusCode.BadRequest);
+            }
+
             var category = Mapper.Map<LogCategoryDTO, LogCategory>(logCategoryDTO);
 
             category.ApplicationUserId = User.Identity.GetUserId();

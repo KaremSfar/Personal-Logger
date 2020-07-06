@@ -10,7 +10,7 @@
 
     <div class="form-group">
         <label>Category Name</label>
-        <input name="category" id="categoryName" type="text" value="" class="form-control" required />
+        <input name="category" data-rule-validCategoryName="true" id="categoryName" type="text" value="" class="form-control" required />
     </div>
 
     <div class="form-group">
@@ -23,7 +23,7 @@
             <ul id="fieldList" class="list-group"></ul>
         </div>
         <div class="tt-container d-flex justify-content-between w-50vw">
-            <input id="fieldName" name="fields" type="text" value="" class="form-control w-25" />
+            <input id="fieldName"  name="fields" type="text" value="" class="form-control w-25" />
             <select id="typeSelect" class="form-control w-25">
             </select>
             <button id="addField" class="btn btn-success">+</button>
@@ -59,6 +59,10 @@
             $("#addField").click(function (event) {
                 event.preventDefault();
                 var fieldName = $("#fieldName").val();
+                if (fieldName.length < 4) {
+                    toastr.error("Field Name must not be empty");
+                    return;
+                }
                 var fieldType = $("select#typeSelect option:checked").text();
                 var fieldTypeId = $("select#typeSelect option:checked").val();
 
@@ -75,6 +79,12 @@
             });
 
 
+            $.validator.addMethod("validCategoryName", function () {
+                return $("#categoryName").val().length > 3;
+            }, "Category name is at least 3 characters");
+
+
+
             var validator = $("#newCategory").validate({
                 submitHandler: function () {
 
@@ -85,15 +95,25 @@
                         method: "post",
                         data: category
                     })
-                        .done(function () {
-                            toastr.success("Category Added");
-                            validator.resetForm();
-                            window.location.replace("/categories");
+                    .done(function () {
+                        toastr.success("Category Added");
 
-                        })
-                        .fail(function () {
-                            toastr.error("Weird but didnt work");
-                        });
+                        category = {
+                            categoryFields: []
+                        };
+
+                        $("#categoryName").val("");
+                        $("#fieldList").empty();
+
+
+                        validator.resetForm();
+
+
+
+                    })
+                    .fail(function () {
+                        toastr.error("Weird but didnt work");
+                    });
 
                     return false;
                 }
