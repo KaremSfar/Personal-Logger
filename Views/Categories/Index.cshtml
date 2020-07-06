@@ -50,7 +50,7 @@
 
             $("#categories").on("click", '.js-delete', function () {
                 var button = $(this);
-                bootbox.confirm("Delete this cateory ?", function (result) {
+                bootbox.confirm("Delete this cateory? All related logs will be deleted too", function (result) {
                     if (result) {
                         $.ajax({
                             url: "/api/categories/" + button.attr("data-category-id"),
