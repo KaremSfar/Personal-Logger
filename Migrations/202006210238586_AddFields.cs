@@ -21,7 +21,7 @@ namespace PersonalLogger.Migrations
                         MyLog_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.MyLogs", t => t.MyLog_Id)
+                .ForeignKey("dbo.MyLogs", t => t.MyLog_Id, cascadeDelete: true)
                 .Index(t => t.MyLog_Id);
             
         }

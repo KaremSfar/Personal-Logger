@@ -27,6 +27,5 @@ namespace PersonalLogger.Models
         {
             return new ApplicationDbContext();
         }
-
     }
 }

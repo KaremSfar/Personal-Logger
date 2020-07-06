@@ -5,6 +5,8 @@ using System.Linq;
 using System.Data.Entity;
 using System.Web.Http;
 using AutoMapper;
+using System.Data.Entity.Infrastructure;
+using System;
 
 namespace PersonalLogger.Controllers.API
 {
@@ -83,7 +85,7 @@ namespace PersonalLogger.Controllers.API
         {
             var userId = User.Identity.GetUserId();
 
-            var category = context.LogCategories.Include(c => c.CategoryFields).SingleOrDefault(c => c.Id == id && c.ApplicationUserId==userId);
+            var category = context.LogCategories.Include(c => c.CategoryFields.Select(cf=>cf.FieldType)).SingleOrDefault(c => c.Id == id && c.ApplicationUserId==userId);
             if (category == null)
             {
                 NotFound();

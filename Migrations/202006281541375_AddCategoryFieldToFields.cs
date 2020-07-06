@@ -9,7 +9,7 @@ namespace PersonalLogger.Migrations
         {
             AddColumn("dbo.Fields", "CategoryFieldId", c => c.Int(nullable: false));
             CreateIndex("dbo.Fields", "CategoryFieldId");
-            AddForeignKey("dbo.Fields", "CategoryFieldId", "dbo.CategoryFields", "Id", cascadeDelete: true);
+            AddForeignKey("dbo.Fields", "CategoryFieldId", "dbo.CategoryFields", "Id");
             DropColumn("dbo.Fields", "Name");
         }
         
