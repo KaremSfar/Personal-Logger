@@ -21,7 +21,7 @@ namespace PersonalLogger.Controllers.API
         }
 
         //GET /api/myLogs
-        public IHttpActionResult GetLogs(string query = null, int? categoryId=null)
+        public IHttpActionResult GetLogs(int? categoryId = null)
         {
             var userId = User.Identity.GetUserId();
 
@@ -37,7 +37,6 @@ namespace PersonalLogger.Controllers.API
                 .Select(Mapper.Map<MyLog, MyLogDTO>);
 
 
-
             return Ok(logList);
         }
 
@@ -45,11 +44,17 @@ namespace PersonalLogger.Controllers.API
         [HttpPost]
         public IHttpActionResult CreateLog(MyLogDTO myLogDTO)
         {
-            //verification and validation stuff
+            if (!ModelState.IsValid){
+                throw new HttpResponseException(System.Net.HttpStatusCode.BadRequest);
+            }
 
             var userId = User.Identity.GetUserId();
 
             var category = context.LogCategories.Include(c => c.CategoryFields.Select(cf=>cf.FieldType)).SingleOrDefault(c => c.Id == myLogDTO.LogCategoryId);
+            if (category == null)
+            {
+                throw new HttpResponseException(System.Net.HttpStatusCode.BadRequest);
+            }
 
             var fields = new List<Field>();
 

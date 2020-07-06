@@ -10,6 +10,7 @@ namespace PersonalLogger.Models
         [Required]
         public DateTime LogDate { get; set; }
 
+        [Required]
         public LogCategory LogCategory { get; set; }
         public int LogCategoryId { get; set; }
 
