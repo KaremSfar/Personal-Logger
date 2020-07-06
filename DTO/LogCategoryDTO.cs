@@ -1,10 +1,7 @@
-﻿using PersonalLogger.Models;
-using System;
+﻿using PersonalLogger.Models.Validation;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing.Design;
-using System.Linq;
-using System.Web;
+
 
 namespace PersonalLogger.DTO
 {
@@ -17,7 +14,7 @@ namespace PersonalLogger.DTO
         [MinLength(3)]
         public string CategoryName { get; set; }
 
-
+        [CategoryFieldsNameValidation]
         public List<CategoryFieldDTO> CategoryFields { get; set; }
     }
 }

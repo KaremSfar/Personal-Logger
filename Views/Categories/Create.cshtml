@@ -36,6 +36,11 @@
 </form>
 
 
+
+@*TODO :
+    PUT ALL THIS JS CODE SOMEWHERE ELSE PLS
+*@
+
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
     <script>
@@ -60,7 +65,7 @@
                 event.preventDefault();
                 var fieldName = $("#fieldName").val();
                 if (fieldName.length < 4) {
-                    toastr.error("Field Name must not be empty");
+                    toastr.error("Field Name must not be empty and must have at least 4 characters");
                     return;
                 }
                 var fieldType = $("select#typeSelect option:checked").text();
@@ -73,7 +78,7 @@
                     }
                 });
 
-                $("#fieldList").append("<li class='list-group-item'>" + fieldName + "    -    " + fieldType + "</li>");
+                $("#fieldList").append("<li class='list-group-item'>" + fieldName + " - " + fieldType + "</li>");
 
                 $("#fieldName").val("");
             });
