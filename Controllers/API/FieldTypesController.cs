@@ -2,6 +2,7 @@
 using Microsoft.Ajax.Utilities;
 using PersonalLogger.DTO;
 using PersonalLogger.Models;
+using PersonalLogger.Repository;
 using System.Linq;
 using System.Web.Http;
 
@@ -10,11 +11,15 @@ namespace PersonalLogger.Controllers.API
     public class FieldTypesController : ApiController
     {
 
-        private ApplicationDbContext context;
+
+        private IUnitOfWork unitOfWork;
 
         public FieldTypesController()
         {
-            context = new ApplicationDbContext();
+            var context = new ApplicationDbContext();
+
+            unitOfWork = new UnitOfWork(context);
+
         }
 
 
@@ -22,7 +27,7 @@ namespace PersonalLogger.Controllers.API
         [HttpGet]
         public IHttpActionResult GetFieldTypes()
         {
-            var fieldTypes = context.FieldTypes.Select(Mapper.Map<Models.FieldType,FieldTypeDTO>);
+            var fieldTypes = unitOfWork.FieldTypes.Get().Select(Mapper.Map<Models.FieldType,FieldTypeDTO>);
 
             return Ok(fieldTypes);
         }

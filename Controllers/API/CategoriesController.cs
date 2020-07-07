@@ -7,16 +7,22 @@ using System.Web.Http;
 using AutoMapper;
 using System.Data.Entity.Infrastructure;
 using System;
+using PersonalLogger.Repository;
+using Newtonsoft.Json.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PersonalLogger.Controllers.API
 {
     public class CategoriesController : ApiController
     {
-        private ApplicationDbContext context;
+
+        private IUnitOfWork unitOfWork;
 
         public CategoriesController()
         {
-            context = new ApplicationDbContext();
+            var context = new ApplicationDbContext();
+            unitOfWork = new UnitOfWork(context);
         }
 
         //GET /api/categories
@@ -25,12 +31,19 @@ namespace PersonalLogger.Controllers.API
         {
             var userId = User.Identity.GetUserId();
 
-            var list = context.LogCategories.Include(c => c.CategoryFields)
-                .Where(c => c.ApplicationUserId == userId);
+            //var list = context.LogCategories.Include(c => c.CategoryFields)
+            //  .Where(c => c.ApplicationUserId == userId);
+
+            IEnumerable<LogCategory> list;
+
 
             if (!string.IsNullOrWhiteSpace(query))
             {
-                list = list.Where(c => c.CategoryName.Contains(query));
+                list = unitOfWork.LogCategories.GetWithCategoryFields(lc => lc.ApplicationUserId == userId && lc.CategoryName.Contains(query));
+            }
+            else
+            {
+                list = unitOfWork.LogCategories.GetWithCategoryFields(lc => lc.ApplicationUserId == userId);
             }
             
             var categories = list.Select(Mapper.Map<LogCategory, LogCategoryDTO>);
@@ -42,15 +55,13 @@ namespace PersonalLogger.Controllers.API
         //GET /api/categories/1
         public IHttpActionResult GetCategory(int id)
         {
-            var userId = User.Identity.GetUserId();
-
-            var category = context.LogCategories.Include(c => c.CategoryFields).SingleOrDefault(c => c.Id == id && c.ApplicationUserId==userId);
+            var category = unitOfWork.LogCategories.GetByIDWithCategoryFields(id);
             if (category == null)
             {
                 NotFound();
             }
+            //TODO MAP
             return Ok(category);
-
         }
 
         //POST /api/cetegories
@@ -69,9 +80,11 @@ namespace PersonalLogger.Controllers.API
 
 
 
-            category = context.LogCategories.Add(category);
+            //category = context.LogCategories.Add(category);
 
-            context.SaveChanges();
+            unitOfWork.LogCategories.Insert(category);
+
+            unitOfWork.Commit();
 
             return Ok(Mapper.Map<LogCategory,LogCategoryDTO>(category));
 
@@ -88,15 +101,15 @@ namespace PersonalLogger.Controllers.API
         [HttpDelete]
         public IHttpActionResult DeleteCategory(int id)
         {
-            var userId = User.Identity.GetUserId();
+            var category = unitOfWork.LogCategories.GetByIDWithCategoryFields(id);
 
-            var category = context.LogCategories.Include(c => c.CategoryFields.Select(cf=>cf.FieldType)).SingleOrDefault(c => c.Id == id && c.ApplicationUserId==userId);
             if (category == null)
             {
                 NotFound();
             }
-            context.LogCategories.Remove(category);
-            context.SaveChanges();
+            unitOfWork.LogCategories.Delete(category);
+            unitOfWork.Commit();
+
             return Ok(category);
         }
 

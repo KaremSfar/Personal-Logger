@@ -278,6 +278,14 @@
     <Compile Include="Models\MyLog.cs" />
     <Compile Include="Models\Validation\CategoryFieldsNameValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ILogCategoryRepository.cs" />
+    <Compile Include="Repository\IMyLogsRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IUnitOfWork.cs" />
+    <Compile Include="Repository\LogCategoryRepository.cs" />
+    <Compile Include="Repository\MyLogsRepository.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Util\FieldFactory.cs" />
   </ItemGroup>
