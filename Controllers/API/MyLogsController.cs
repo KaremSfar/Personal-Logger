@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using PersonalLogger.DTO;
 using PersonalLogger.Models;
+using PersonalLogger.Repository;
 using PersonalLogger.Util;
 using System;
 using System.Collections.Generic;
@@ -15,27 +17,28 @@ namespace PersonalLogger.Controllers.API
     {
         private ApplicationDbContext context;
 
+        private UnitOfWork unitOfWork;
+
         public MyLogsController()
         {
             context = new ApplicationDbContext();
+            unitOfWork = new UnitOfWork(context);
         }
 
         //GET /api/myLogs
         public IHttpActionResult GetLogs(int? categoryId = null)
         {
             var userId = User.Identity.GetUserId();
-
-            var logListQuery = context.MyLogs.Include(m => m.Fields.Select(f => f.CategoryField))
-                .Where(m => m.ApplicationUserId == userId);
+            IEnumerable<MyLog> logList;
 
             if (categoryId != null)
             {
-                logListQuery = logListQuery.Where(ml => ml.LogCategoryId == categoryId);
+                logList = unitOfWork.MyLogs.GetWithFields(m => m.ApplicationUserId == userId && m.LogCategoryId == categoryId);
             }
-
-            var logList = logListQuery.ToList()
-                .Select(Mapper.Map<MyLog, MyLogDTO>);
-
+            else
+            {
+                logList = unitOfWork.MyLogs.Get(m => m.ApplicationUserId == userId);
+            }
 
             return Ok(logList);
         }
@@ -50,7 +53,8 @@ namespace PersonalLogger.Controllers.API
 
             var userId = User.Identity.GetUserId();
 
-            var category = context.LogCategories.Include(c => c.CategoryFields.Select(cf=>cf.FieldType)).SingleOrDefault(c => c.Id == myLogDTO.LogCategoryId);
+            var category = unitOfWork.LogCategories.GetByIDWithCategoryFields(myLogDTO.LogCategoryId);
+
             if (category == null)
             {
                 throw new HttpResponseException(System.Net.HttpStatusCode.BadRequest);
@@ -68,8 +72,6 @@ namespace PersonalLogger.Controllers.API
                 fields.Add(lol);   
             }
 
-            var logCategory = context.LogCategories.SingleOrDefault(c => c.Id == myLogDTO.LogCategoryId);
-
             var myLog = new MyLog
             {
                 ApplicationUserId = userId,
@@ -80,14 +82,13 @@ namespace PersonalLogger.Controllers.API
 
 
 
-            context.MyLogs.Add(myLog);
+            unitOfWork.MyLogs.Insert(myLog);
 
-            context.SaveChanges();
+            unitOfWork.Commit();
 
             var rLog = Mapper.Map<MyLog, MyLogDTO>(myLog);
 
             return Ok(rLog);
-
         }
 
 

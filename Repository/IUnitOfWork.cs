@@ -9,8 +9,10 @@ namespace PersonalLogger.Repository
 {
     public interface IUnitOfWork
     {
-        IRepository<MyLog> MyLogs { get; }
-        IRepository<LogCategory> LogCategories { get; }
+        IMyLogsRepository MyLogs { get; }
+        ILogCategoryRepository LogCategories { get; }
         IRepository<FieldType> FieldTypes { get; }
+
+        void Commit();
     }
 }
