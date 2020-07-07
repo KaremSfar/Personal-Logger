@@ -16,7 +16,7 @@ namespace PersonalLogger.Controllers.API
     public class MyLogsController : ApiController
     {
 
-        private UnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
         public MyLogsController()
         {
