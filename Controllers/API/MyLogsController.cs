@@ -15,13 +15,12 @@ namespace PersonalLogger.Controllers.API
 {
     public class MyLogsController : ApiController
     {
-        private ApplicationDbContext context;
 
         private UnitOfWork unitOfWork;
 
         public MyLogsController()
         {
-            context = new ApplicationDbContext();
+            var context = new ApplicationDbContext();
             unitOfWork = new UnitOfWork(context);
         }
 
@@ -97,13 +96,15 @@ namespace PersonalLogger.Controllers.API
         {
             var userId = User.Identity.GetUserId();
 
-            var log = context.MyLogs.Include(l=>l.Fields).SingleOrDefault(l => l.Id == id && l.ApplicationUserId == userId);
+            var log = unitOfWork.MyLogs.GetWithFields(ml => ml.Id == id && ml.ApplicationUserId == userId).SingleOrDefault();
+
             if (log == null)
             {
                 NotFound();
             }
-            context.MyLogs.Remove(log);
-            context.SaveChanges();
+
+            unitOfWork.MyLogs.Delete(log);
+            unitOfWork.Commit();
 
             return Ok(Mapper.Map<MyLog,MyLogDTO>(log));
         }
