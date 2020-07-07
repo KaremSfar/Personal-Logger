@@ -8,6 +8,10 @@
 
 <button id="addLog"class="btn btn-success mt-2 mb-5">Create Logs</button>
 
+
+<canvas id="myChart" width="300" height="300"></canvas>
+
+
 <table id="logs" class="table table-striped">
     <thead class="thead-light">
         <th>Log Date</th>
@@ -24,6 +28,7 @@
         $(document).ready(function () {
             var categoryId = @(ViewContext.RouteData.Values["id"]);
 
+            var ctx = $("#myChart"); 
 
             var table = $("#logs").DataTable({
                 ajax: {
@@ -61,9 +66,10 @@
                 })
             });
 
-        $("#addLog").click(function () {
-                window.location.replace("/MyLogs/Create");
+            $("#addLog").click(function () {
+                    window.location.replace("/MyLogs/Create");
             });
+
 
 
 
