@@ -30,9 +30,6 @@
         $(document).ready(function () {
             var categoryId = @(ViewContext.RouteData.Values["id"]);
 
-            
-
-
 
             //GET 7 LAST DAYS STUFF
 
@@ -45,29 +42,74 @@
                 days.unshift(day.format("dddd"));
             }
 
+            let logs = [];
 
             //GET LOGS FROM PAST 7 DAYS
-
+            $.ajax({
+                url: "/api/myLogs?categoryId" + categoryId + "lastDays=7",
+                type: "get",
+                success: function (data) {
+                    for (var i = 0; i < 7;i++) {
+                        var a = data.filter(log => moment(log.logDate).format("dddd") === days[i]);
+                        logs.push(a.length);
+                    }
+                }
+            })
 
 
             //CHART STUFF
             var ctx = $("#myChart");
+
+            console.log(logs);
+            console.log(days);
+
+            for (i of logs) {
+                console.log(i)
+            }
 
             let myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: days,
                     datasets: [{
-                        label:"Logs during last week"
-                    }
-                    ]
+                        label: "Logs during last week",
+                        data: logs,
+                        fill: false,
+                        borderColor: "rgba(0,0,0,1)",
+                        lineTension: 0
+                    }]
                 },
                 options: {
                     aspectRatio: 2,
                     maintainAspectRatio: true,
+                    tooltips: {
+                        mode: 'index'
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Value'
+                            },
+                            ticks: {
+                                suggestedMin: 0,
+                                suggestedMax: 5,
+                            }
+                        }]
+                    }
                 }
 
             });
+
+
+
 
 
             //DATATABLES STUFF
