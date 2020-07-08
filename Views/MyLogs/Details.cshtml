@@ -56,7 +56,11 @@
             let myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: days
+                    labels: days,
+                    datasets: [{
+                        label:"Logs during last week"
+                    }
+                    ]
                 },
                 options: {
                     aspectRatio: 2,

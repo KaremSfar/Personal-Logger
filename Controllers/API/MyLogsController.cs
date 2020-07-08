@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Http;
 
 namespace PersonalLogger.Controllers.API
@@ -29,11 +30,16 @@ namespace PersonalLogger.Controllers.API
         {
             var userId = User.Identity.GetUserId();
 
-            var lastDate = DateTime.Now.AddDays(-(double)lastDays);
+            DateTime? lastDate = null;
+
+            if (lastDays != null)
+            {
+                lastDate = DateTime.Now.AddDays(-(double)lastDays.Value);
+            }
 
             IEnumerable<MyLog> logList = unitOfWork.MyLogs.GetWithFields(
                 m => m.ApplicationUserId == userId
-                && (categoryId != null ? m.LogCategoryId == categoryId : true)
+                && (categoryId != null ? (m.LogCategoryId == categoryId) : true)
                 && (lastDays != null ? (m.LogDate >= lastDate) : true));
 
 
