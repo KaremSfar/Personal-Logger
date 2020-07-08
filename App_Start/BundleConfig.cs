@@ -15,7 +15,9 @@ namespace PersonalLogger
                         "~/Scripts/DataTables/jquery.datatables.js",
                         "~/Scripts/datatables/datatables.bootstrap4.js",
                         "~/Scripts/typeahead.bundle.js",
-                        "~/Scripts/toastr.js"));
+                        "~/Scripts/Chart.js",
+                        "~/Scripts/toastr.js",
+                        "~/Scripts/moment.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -30,6 +32,7 @@ namespace PersonalLogger
                       "~/Content/DataTables/css/dataTables.bootstrap4.css",
                        "~/Content/typeahead.css",
                       "~/Content/toastr.css",
+                      "~/Content/Chart.css",
                       "~/Content/Site.css"));
         }
     }
