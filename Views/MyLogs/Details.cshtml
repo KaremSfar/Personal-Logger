@@ -30,6 +30,13 @@
 
             var ctx = $("#myChart"); 
 
+            let myChart = new Chart(ctx, {
+                type: 'line'
+
+            });
+
+
+            //DATATABLES STUFF
             var table = $("#logs").DataTable({
                 ajax: {
                     url: "/api/myLogs?categoryId="+categoryId,
