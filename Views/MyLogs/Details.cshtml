@@ -8,8 +8,10 @@
 
 <button id="addLog"class="btn btn-success mt-2 mb-5">Create Logs</button>
 
+<div class="chart-container">
+    <canvas id="myChart" class="chart-canvas chartjs-render-monitor" ></canvas>
+</div>
 
-<canvas id="myChart" width="300" height="300"></canvas>
 
 
 <table id="logs" class="table table-striped">
@@ -28,10 +30,38 @@
         $(document).ready(function () {
             var categoryId = @(ViewContext.RouteData.Values["id"]);
 
-            var ctx = $("#myChart"); 
+            
+
+
+
+            //GET 7 LAST DAYS STUFF
+
+
+            var day = moment();
+            let days = [day.format("dddd")];
+
+            for (var i = 1; i < 7; i++) {
+                day.add(-1, 'd');
+                days.unshift(day.format("dddd"));
+            }
+
+
+            //GET LOGS FROM PAST 7 DAYS
+
+
+
+            //CHART STUFF
+            var ctx = $("#myChart");
 
             let myChart = new Chart(ctx, {
-                type: 'line'
+                type: 'line',
+                data: {
+                    labels: days
+                },
+                options: {
+                    aspectRatio: 2,
+                    maintainAspectRatio: true,
+                }
 
             });
 

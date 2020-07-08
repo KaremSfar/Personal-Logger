@@ -25,19 +25,17 @@ namespace PersonalLogger.Controllers.API
         }
 
         //GET /api/myLogs
-        public IHttpActionResult GetLogs(int? categoryId = null)
+        public IHttpActionResult GetLogs(int? categoryId = null, int? lastDays = null)
         {
             var userId = User.Identity.GetUserId();
-            IEnumerable<MyLog> logList;
 
-            if (categoryId != null)
-            {
-                logList = unitOfWork.MyLogs.GetWithFields(m => m.ApplicationUserId == userId && m.LogCategoryId == categoryId);
-            }
-            else
-            {
-                logList = unitOfWork.MyLogs.Get(m => m.ApplicationUserId == userId);
-            }
+            var lastDate = DateTime.Now.AddDays(-(double)lastDays);
+
+            IEnumerable<MyLog> logList = unitOfWork.MyLogs.GetWithFields(
+                m => m.ApplicationUserId == userId
+                && (categoryId != null ? m.LogCategoryId == categoryId : true)
+                && (lastDays != null ? (m.LogDate >= lastDate) : true));
+
 
             return Ok(logList);
         }

@@ -16,7 +16,8 @@ namespace PersonalLogger
                         "~/Scripts/datatables/datatables.bootstrap4.js",
                         "~/Scripts/typeahead.bundle.js",
                         "~/Scripts/Chart.js",
-                        "~/Scripts/toastr.js"));
+                        "~/Scripts/toastr.js",
+                        "~/Scripts/moment.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
