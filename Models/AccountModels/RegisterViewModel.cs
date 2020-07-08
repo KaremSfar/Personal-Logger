@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PersonalLogger.Models.AccountModels
+namespace PersonalLogger.Models
 {
     public class RegisterViewModel
     {

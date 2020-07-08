@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace PersonalLogger.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public ActionResult Index()
