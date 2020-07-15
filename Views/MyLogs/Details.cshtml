@@ -46,7 +46,7 @@
 
             //GET LOGS FROM PAST 7 DAYS
             $.ajax({
-                url: "/api/myLogs?categoryId" + categoryId + "lastDays=7",
+                url: "/api/myLogs?categoryId=" + categoryId + "&lastDays=7",
                 type: "get",
                 success: function (data) {
                     for (var i = 0; i < 7;i++) {
